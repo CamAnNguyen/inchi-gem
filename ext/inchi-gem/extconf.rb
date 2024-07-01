@@ -152,3 +152,12 @@ $objs = [
 ]
 
 create_makefile('inchi')
+
+begin
+  nr_processors = `getconf _NPROCESSORS_ONLN`.to_i # should be POSIX compatible
+rescue
+  nr_processors = 1
+end
+
+system "make -j#{nr_processors}"
+system "make install"
